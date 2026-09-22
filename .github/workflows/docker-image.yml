@@ -1,0 +1,18 @@
+name: KubeCI
+on:
+ push:
+   branches:
+     - main
+jobs:
+  pythonCI:
+   runs-on: ubuntu-latest
+   steps:
+     - name: gitcheckout
+       uses: actions/checkout@4
+     - name: Build docker image
+       run: "docker build -t shivdas112/gha-pyapp:v1 ."
+     - name: Login to Docker Hub
+       uses: docker/login-action@v3
+       with:
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
